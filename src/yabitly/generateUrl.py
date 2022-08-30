@@ -10,7 +10,8 @@ from uuid import uuid4
 import string 
 
 bit_size=64
-BASE_LIST = string.ascii_letters + string.digits
+# BASE_LIST = string.ascii_letters + string.digits
+BASE_LIST = "0123456789ABCDEF"
 BASE_DICT = dict((c, i) for i, c in enumerate(BASE_LIST))
 
 
@@ -20,6 +21,18 @@ def init_app(app):
     pass 
 
 def base_encode(integer, base=BASE_LIST):
+    if integer is None:
+        return None
+
+    if type(integer) == type(1.):
+        raise ValueError("Cannot encode floating point number. Enter integer")
+
+    if type(integer) == type('str'):
+        try :
+            integer = int(integer)
+        except Exception as ex:
+            raise  ValueError("Can't convert string input to integer.")
+
     if integer == 0:
         return base[0]
 
