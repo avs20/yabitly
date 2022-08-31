@@ -46,9 +46,12 @@ def test_for_base_encode_hex():
 
 
 
-
-def test_for_generateUrl():
+from uuid import UUID
+def test_for_generateUrl(mocker):
     """
     This should convert a number to hexa decimal string.
     """
-    pass
+    mocker.patch('src.yabitly.generateUrl.uuid4', return_value = UUID('b88e5416-4296-4179-969a-d18248c1f4b6'))
+    expected =  "B88E541642964179"
+    result = generateUrl("test.com")
+    assert result == expected

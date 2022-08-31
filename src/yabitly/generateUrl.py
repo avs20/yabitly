@@ -48,6 +48,7 @@ def base_encode(integer, base=BASE_LIST):
 
 def generateUrl(url):
     unique_id = uuid4().int >> bit_size
+    print(unique_id)
     return base_encode(unique_id)
     # print(unique_id)
     # print(base_encode(unique_id))
