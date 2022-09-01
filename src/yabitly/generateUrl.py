@@ -10,8 +10,8 @@ from uuid import uuid4
 import string 
 
 bit_size=64
-# BASE_LIST = string.ascii_letters + string.digits
-BASE_LIST = "0123456789ABCDEF"
+BASE_LIST = string.ascii_letters + string.digits
+# BASE_LIST = "0123456789ABCDEF"
 BASE_DICT = dict((c, i) for i, c in enumerate(BASE_LIST))
 
 
@@ -47,11 +47,10 @@ def base_encode(integer, base=BASE_LIST):
 
 
 def generateUrl(url):
-    unique_id = uuid4().int >> bit_size
-    print(unique_id)
+    unique_id = uuid4().int >> bit_size    
     return base_encode(unique_id)
-    # print(unique_id)
-    # print(base_encode(unique_id))
+    
+    
 
 
 if __name__ =="__main__":
