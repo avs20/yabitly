@@ -6,19 +6,35 @@ Basically we want to generate a unique 64bit uuid and convert to hexa decimal
 
 """
 
+from textwrap import shorten
 from uuid import uuid4
 import string 
+
+from flask import g 
 
 bit_size=64
 BASE_LIST = string.ascii_letters + string.digits
 # BASE_LIST = "0123456789ABCDEF"
 BASE_DICT = dict((c, i) for i, c in enumerate(BASE_LIST))
 
+import db 
 
 def init_app(app):
-    # app.teardown_appcontext(close_db)
-    # app.cli.add_command(init_db_command)
-    pass 
+    pass
+
+
+def insert_into_db( short_url, full_url):
+    """
+    saves the data into db for urls 
+    """
+    db = get_db()
+    if db is None or db.session is None:
+        raise Exception("Can't conenct to RDS!")        
+
+    output = g.db.session.execute("insert into url_shorten(shorten_url, full_url) values('{}', '{}')".format(short_url, full_url))
+    print(output)
+    
+
 
 def base_encode(integer, base=BASE_LIST):
     if integer is None:
@@ -46,12 +62,17 @@ def base_encode(integer, base=BASE_LIST):
     return ret
 
 
+
+
 def generateUrl(url):
     unique_id = uuid4().int >> bit_size    
-    return base_encode(unique_id)
+    short_url = base_encode(unique_id)
+    insert_into_db(short_url, url)
+    return short_url
     
     
 
 
-if __name__ =="__main__":
-    generateUrl('google.com')
+# if __name__ =="__main__":    
+
+#     generateUrl('google.com')
