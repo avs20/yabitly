@@ -28,6 +28,9 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
+    from . import generateUrl
+    app.register_blueprint(generateUrl.bp)
+
 
 
     # a simple page that says hello
@@ -38,14 +41,8 @@ def create_app(test_config=None):
     from . import generateUrl
     generateUrl.init_app(app)
     # a simple page that says hello
-    @app.route('/generateUrl')
-    def generateURL():
-        url = request.args.get('url')
-        if url is None or len(url.strip()) == 0:
-            return  'Invalid Url : Please send proper URL', 400 
+    # @app.route('/generateUrl')
 
-        newUrl = BASE_URL + generateUrl.generateUrl(url)
-        return newUrl
 
     # a simple page that says hello
     @app.route('/redirect')

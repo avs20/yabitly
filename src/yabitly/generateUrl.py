@@ -10,15 +10,30 @@ from textwrap import shorten
 from uuid import uuid4
 import string 
 
-from flask import g 
+import functools
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+
+from src.yabitly.db import get_db
+
+bp = Blueprint('genUrl',__name__, url_prefix='/generateUrl')
 
 bit_size=64
 BASE_LIST = string.ascii_letters + string.digits
 # BASE_LIST = "0123456789ABCDEF"
 BASE_DICT = dict((c, i) for i, c in enumerate(BASE_LIST))
+BASE_URL = 'http://yabitly.com/'
 
-import db 
 
+@bp.route('/', methods = ['GET'])
+def generateURL():
+    url = request.args.get('url')
+    if url is None or len(url.strip()) == 0:
+        return  'Invalid Url : Please send proper URL', 400 
+    
+    newUrl = BASE_URL + generateUrl( url)
+    return newUrl
 def init_app(app):
     pass
 
@@ -31,7 +46,7 @@ def insert_into_db( short_url, full_url):
     if db is None or db.session is None:
         raise Exception("Can't conenct to RDS!")        
 
-    output = g.db.session.execute("insert into url_shorten(shorten_url, full_url) values('{}', '{}')".format(short_url, full_url))
+    output = db.session.execute("insert into url_shorten(shorten_url, full_url) values('{}', '{}')".format(short_url, full_url))
     print(output)
     
 
