@@ -26,7 +26,7 @@ BASE_DICT = dict((c, i) for i, c in enumerate(BASE_LIST))
 BASE_URL = 'http://yabitly.com/'
 
 
-@bp.route('/', methods = ['GET'])
+@bp.route('', methods = ['GET'])
 def generateURL():
     url = request.args.get('url')
     if url is None or len(url.strip()) == 0:
