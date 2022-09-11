@@ -10,5 +10,15 @@ Now we should have fast insertion in the database and fast read also.
 
 I will mull over this problem later on how I can fast this up. 
 
+Another problem I am noticing is my cassandra one of the servers is failing. 
+Why is that ? 
+
+Need to explore on that. 
+
+Current problems : 
+1. Cassandra taking long time to insert
+2. One of nodes failing 
+3. Attach redis.
+
 Next issue is using redis cache. 
 
