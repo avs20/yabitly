@@ -1,33 +1,29 @@
 version: '2'
-
-# file for upping the cassnadra cluster
-
-services: 
- cas1: 
-    container_name: cas1
-    image: cassandra:latest
-    volumes:
-      -  /home/ashutosh/github-personal/yabitly/data/node1:/var/lib/cassandra/data
+services:
+  cassandra-node1:
+    image: bitnami/cassandra:latest
     ports:
       - 9042:9042
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
     environment:
-      - CASSANDRA_START_RPC=true
-      - CASSANDRA_CLUSTER_NAME=MyCluster
-      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-      - CASSANDRA_DC=datacenter1
- cas2:
-  container_name: cas2
-  image: cassandra:latest
-  volumes:
-      -  /home/ashutosh/github-personal/yabitly/data/node2:/var/lib/cassandra/data
-  ports:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2      
+      - CASSANDRA_DATACENTER=datacenter1
+
+  cassandra-node2:
+    image: bitnami/cassandra:latest
+    ports:
       - 9043:9042
-  command: bash -c 'sleep 60;  /docker-entrypoint.sh cassandra -f'
-  depends_on:
-    - cas1
-  environment:
-      - CASSANDRA_START_RPC=true
-      - CASSANDRA_CLUSTER_NAME=MyCluster
-      - CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch
-      - CASSANDRA_DC=datacenter1
-      - CASSANDRA_SEEDS=cas1
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2      
+      - CASSANDRA_DATACENTER=datacenter1
+
+  # cassandra-node3:
+  #   image: bitnami/cassandra:latest
+  #   environment:
+  #     - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+  #     - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2,cassandra-node3
+  #     - CASSANDRA_PASSWORD=password123
+  #     - CASSANDRA_DATACENTER=datacenter1

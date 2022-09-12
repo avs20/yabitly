@@ -2,6 +2,9 @@ import click
 from flask import current_app, g
 from cassandra.cluster import Cluster
 from flask.cli import with_appcontext
+import os
+import socket 
+from cassandra.auth import PlainTextAuthProvider
 
 
 # class DataBase:
@@ -24,11 +27,27 @@ from flask.cli import with_appcontext
 #             self.cluster.shutdown()
         
 
+def isOpen(ip, port):
+   test = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+   try:
+      test.connect((ip, int(port)))
+      test.shutdown(1)
+      return True
+   except:
+      return False
+
+def fakeLoadBalancer():
+    ips = []
+    port = 9042
+    for ip in os.environ.get('CASSANDRA_SEEDS').split(','):
+        if isOpen(ip, port):
+            ips.append(ip)
+    return ips
 
 def get_db():
     if 'db' not in g:
-        g.db = Cluster(['0.0.0.0'],port=9042)
-        g.db.session = g.db.connect('urlshorten',wait_for_all_pools=True)
+        g.db = Cluster(fakeLoadBalancer(), port=9042, auth_provider=PlainTextAuthProvider(username='cassandra', password='cassandra'))
+        g.db.session = g.db.connect('urlshorten',wait_for_all_pools=False)
 
     return g.db
 

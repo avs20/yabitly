@@ -47,7 +47,7 @@ def insert_into_db( short_url, full_url):
         raise Exception("Can't conenct to RDS!")        
 
     output = db.session.execute("insert into url_shorten(shorten_url, full_url) values('{}', '{}')".format(short_url, full_url))
-    print(output)
+    # print(output)
     
 
 
