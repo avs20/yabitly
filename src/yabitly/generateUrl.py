@@ -43,10 +43,10 @@ def insert_into_db( short_url, full_url):
     saves the data into db for urls 
     """
     db = get_db()
-    if db is None or db.session is None:
+    if db is None:
         raise Exception("Can't conenct to RDS!")        
 
-    output = db.session.execute("insert into url_shorten(shorten_url, full_url) values('{}', '{}')".format(short_url, full_url))
+    output = db.execute("insert into url_shorten(shorten_url, full_url) values('{}', '{}')".format(short_url, full_url))
     # print(output)
     
 

@@ -1,3 +1,23 @@
+14th Sep 2022
+-------------------
+Cassandra is working now. 
+Could not make it work with 2 or 4g of memory. 
+Docker mahcines were crashing. 
+Gave it free reign and it worked. 
+
+Replication is working 
+
+Throughput is back to 3-5 seconds. 
+Now I need to think of how to put the database call in a new thread and return the response in flask. 
+This will increase the throughput. 
+
+For database calls the question is still how to save is persistenly. 
+I can try to write to local file which is some append only file but how can many threads write to it. 
+Need to read on how to do db calls to thread in flask. 
+
+? Another thing is to make sure fake loadbalancer is working correctly with differnet ports 
+check the github link from last entry
+
 12th Sep 2022
 -----------------
 Now trying to learn cassandra from here ![](https://github.com/rmoreira/cassandra-project)

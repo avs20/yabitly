@@ -46,10 +46,10 @@ def fakeLoadBalancer():
 
 def get_db():
     if 'db' not in g:
-        g.db = Cluster(fakeLoadBalancer(), port=9042, auth_provider=PlainTextAuthProvider(username='cassandra', password='cassandra'))
-        g.db.session = g.db.connect('urlshorten',wait_for_all_pools=False)
+        cluster = Cluster(fakeLoadBalancer(), port=9042, auth_provider=PlainTextAuthProvider(username='cassandra', password='cassandra'))
+        g.session = cluster.connect('urlshorten',wait_for_all_pools=False)
 
-    return g.db
+    return g.session
 
 
 def close_db(e=None):
