@@ -1,3 +1,8 @@
+15th Sep 2022
+----------------
+Tried with execute_async but it's still taking time. 
+Infact it's taking more. 
+
 14th Sep 2022
 -------------------
 Cassandra is working now. 
