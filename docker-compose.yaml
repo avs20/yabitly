@@ -3,23 +3,21 @@ services:
   cassandra-node1:
     image: bitnami/cassandra:latest
     ports:
-      - 9042:9042    
+      - 9042:9042
     volumes:
       - ./init-scripts:/docker-entrypoint-initdb.d
     environment:
       - CASSANDRA_CLUSTER_NAME=cassandra-cluster
-      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
+      - CASSANDRA_SEEDS=cassandra-node1
       - CASSANDRA_DATACENTER=datacenter1
 
 
-  cassandra-node2:
-    image: bitnami/cassandra:latest
-    ports:
-      - 9043:9042    
-    environment:
-      - CASSANDRA_CLUSTER_NAME=cassandra-cluster
-      - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
-      - CASSANDRA_DATACENTER=datacenter1
+  # cassandra-node2:
+  #   image: bitnami/cassandra:latest
+  #   environment:
+  #     - CASSANDRA_CLUSTER_NAME=cassandra-cluster
+  #     - CASSANDRA_SEEDS=cassandra-node1,cassandra-node2
+  #     - CASSANDRA_DATACENTER=datacenter1
 
 
   # cassandra-node3:

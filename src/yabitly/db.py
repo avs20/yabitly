@@ -37,11 +37,12 @@ def isOpen(ip, port):
       return False
 
 def fakeLoadBalancer():
-    ips = []
-    port = 9042
-    for ip in os.environ.get('CASSANDRA_SEEDS').split(','):
-        if isOpen(ip, port):
-            ips.append(ip)
+    # ips = []
+    # port = 9042
+    # for ip in os.environ.get('CASSANDRA_SEEDS').split(','):
+    #     if isOpen(ip, port):
+    #         ips.append(ip)
+    ips = ["0.0.0.0"]
     return ips
 
 def get_db():

@@ -1,3 +1,15 @@
+27th Sep 2022
+--------------
+Finally I was able to get some decent execution in the saving the data to cassandra node 
+The trick was to use replication factor of 1. AS my machine can't handle 2 cassandra nodes. 
+
+![](./images/jmeter_27_sep_1.png)
+![](./images/jmeter_27_sep_2.png)
+
+The times are now 500ms for 20 threads in parallel. 
+I am sure this will improve if i have proper flask behind gunicorn. 
+
+
 15th Sep 2022
 ----------------
 Tried with execute_async but it's still taking time. 
