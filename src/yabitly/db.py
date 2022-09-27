@@ -6,27 +6,6 @@ import os
 import socket 
 from cassandra.auth import PlainTextAuthProvider
 
-
-# class DataBase:
-#     def __init__(self):
-#         self.db = None 
-#         self.cluster = None
-        
-#     def get_db(self):
-#         return self.connect()
-        
-#     def connect(self):
-#         if self.db is None:
-#             self.cluster = Cluster(['0.0.0.0'],port=9042)
-#             self.session = self.cluster.connect('urlshorten',wait_for_all_pools=True)
-
-#         return self.db
-    
-#     def close(self):
-#         if self.cluster is not None:
-#             self.cluster.shutdown()
-        
-
 def isOpen(ip, port):
    test = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
    try:
@@ -62,14 +41,14 @@ def close_db(e=None):
 def init_app(app):
     app.teardown_appcontext(close_db)
 
-@click.command('init-db')
-@with_appcontext
-def init_db_command():
-    """Clear the existing data and create new tables."""
-    init_db()
-    click.echo('Initialized the database.')
+# @click.command('init-db')
+# @with_appcontext
+# def init_db_command():
+#     """Clear the existing data and create new tables."""
+#     init_db()
+#     click.echo('Initialized the database.')
 
-def init_app(app):
+# def init_app(app):
     
-    app.cli.add_command(init_db_command)
+#     app.cli.add_command(init_db_command)
 

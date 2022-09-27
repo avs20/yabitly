@@ -29,7 +29,9 @@ def create_app(test_config=None):
     db.init_app(app)
 
     from . import generateUrl
+    from . import redirectUrl
     app.register_blueprint(generateUrl.bp)
+    app.register_blueprint(redirectUrl.bp)
 
 
 

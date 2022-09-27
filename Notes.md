@@ -1,3 +1,18 @@
+28th Sep 2022
+-------------
+Now I am starting on redirection 
+So basically when a request comes. check if the url exists and then redirect. 
+Let's create a new route 
+```
+/redirect?key=12djk12
+```
+
+then check in db if key exists and redirect. 
+
+Ok. Redirection is working now with fetching data from the Cassandra.
+
+
+
 27th Sep 2022
 --------------
 Finally I was able to get some decent execution in the saving the data to cassandra node 
