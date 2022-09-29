@@ -1,3 +1,26 @@
+29th Sep 2022
+-------------
+Today I implemented redis cache with the Flask_caching library. 
+The setup was simple but it took some time to get the parts working. 
+
+Now fetching of cached results is taking 10ms. 
+I ran redis with docker so that I can set it up later with docker compose also. 
+
+Adding redis also brings new type of problems like what if redis cache is down?
+I checked with some problem and saw that application failed. 
+So there should be a replica of redis also for availabilty. Or the app should be configured in such way that redis unavailability should not 
+lead to app unavailability. 
+
+```
+docker container run --name db-redis -d  -p 6379:6379 redis
+```
+This was used to run redis. Later it will be used in docker compose. 
+
+Good day for today. I think now I can think of working towards configuration of redis and working with 
+docker to get the app running. 
+
+
+
 28th Sep 2022
 -------------
 Now I am starting on redirection 
