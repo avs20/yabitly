@@ -27,6 +27,8 @@ def create_app(test_config=None):
     
     from . import db
     db.init_app(app)
+    from . import cache
+    cache.cache.init_app(app)
 
     from . import generateUrl
     from . import redirectUrl

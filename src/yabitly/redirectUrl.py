@@ -7,13 +7,14 @@ This file has functions to redirect to urls which are already stored in the app.
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
+from src.yabitly.cache import cache
 from src.yabitly.db import get_db
 
 bp = Blueprint('redirectUrl',__name__, url_prefix='/redirect')
 
 @bp.route('', methods = ['GET'])
-def generateURL():
+@cache.cached(timeout = 50 )
+def fetchUrl():
     url = request.args.get('key')
     if url is None or len(url.strip()) == 0:
         # TODO redirect here to 404
@@ -22,7 +23,8 @@ def generateURL():
     redirectTo = getMappedUrl(url)
     if redirectTo :
         # TODO redirect to 404 page on website.
-        return redirect(redirectTo, code=302)
+        return redirectTo, 200
+        #return redirect(redirectTo, code=302)
     else:
         return 'Page not found', 404
 
@@ -43,6 +45,8 @@ def get_from_db( key ):
     else:
         return output[0].full_url
 
+
 def getMappedUrl(url):
+    # use cache here, see if cache is present. 
     fullUrl = get_from_db(url)
     return fullUrl
