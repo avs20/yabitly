@@ -20,6 +20,11 @@ There are 2 approaches,
 1. It should not fail. 
 2. IF failed we shoudl have fallback. 
 
+
+Created a basic docker image. It runs the sevrer but db is not setup. 
+Next is to setup db and redis in the same network. 
+
+
 29th Sep 2022
 -------------
 Today I implemented redis cache with the Flask_caching library. 
