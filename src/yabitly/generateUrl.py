@@ -9,6 +9,7 @@ Basically we want to generate a unique 64bit uuid and convert to hexa decimal
 from textwrap import shorten
 from uuid import uuid4
 import string 
+from src.yabitly.cache import cache
 
 import functools
 from flask import (
@@ -32,7 +33,9 @@ def generateURL():
     if url is None or len(url.strip()) == 0:
         return  'Invalid Url : Please send proper URL', 400 
     
-    newUrl = BASE_URL + generateUrl( url)
+    key = generateUrl(url)
+    cache.set(key, url)
+    newUrl = BASE_URL + key    
     return newUrl
 def init_app(app):
     pass
