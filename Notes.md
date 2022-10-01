@@ -1,3 +1,25 @@
+1st Oct 2022
+------------
+After the basic version, now I see that we need to update the cache when a new url key is generated. 
+So this will involve setting key in cache when generating a url. 
+
+So my redis is not setup correctly. It's calling the function but the key is just the same function name. 
+It should be params also. 
+
+Now I used cache.memoize so it's saving the key as argument also.
+
+Now I need to know how to set key personnaly in redis. 
+
+Now generateUrl is also setting cache but the key from memoize is different than the key we set. 
+
+I replaced the @cache.memoize with setting and getting value. 
+Now the value is being set with current key properly. 
+
+The question comes is what if redis failed. 
+There are 2 approaches, 
+1. It should not fail. 
+2. IF failed we shoudl have fallback. 
+
 29th Sep 2022
 -------------
 Today I implemented redis cache with the Flask_caching library. 
