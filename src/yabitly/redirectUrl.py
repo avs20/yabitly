@@ -7,7 +7,7 @@ This file has functions to redirect to urls which are already stored in the app.
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from src.yabitly.cache import cache, cache_key
+from src.yabitly.cache import cache
 from src.yabitly.db import get_db
 
 bp = Blueprint('redirectUrl',__name__, url_prefix='/redirect')
